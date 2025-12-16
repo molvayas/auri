@@ -11,10 +11,11 @@ on:
 # This workflow will build the Tauri app for all platforms, create a GitHub release,
 # and upload the artifacts including the updater JSON for auto-updates.
 
+permissions:
+  contents: write
+
 jobs:
   publish-tauri:
-    permissions:
-      contents: write
     strategy:
       fail-fast: false
       matrix:
@@ -83,7 +84,7 @@ jobs:
         if: contains(matrix.platform, 'ubuntu')
         run: |
           sudo apt-get update
-          sudo apt-get install -y libwebkit2gtk-4.1-dev libappindicator3-dev librsvg2-dev patchelf
+          sudo apt-get install -y libwebkit2gtk-4.1-dev libappindicator3-dev librsvg2-dev patchelf xdg-utils
 
       - name: Install frontend dependencies
         run: pnpm install
