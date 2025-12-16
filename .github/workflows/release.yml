@@ -99,9 +99,8 @@ jobs:
           TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY_PASSWORD }}
         with:
           tagName: v__VERSION__
-          releaseName: 'Auri v__VERSION__'
-          releaseBody: 'See the assets to download this version and install.'
           releaseDraft: true
           prerelease: false
+          generateReleaseNotes: true
           args: ${{ matrix.args }}
           releaseAssetNamePattern: '[name]_[version]_[platform]_[arch][setup][ext]'
