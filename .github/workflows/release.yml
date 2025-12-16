@@ -100,6 +100,7 @@ jobs:
         with:
           tagName: v__VERSION__
           releaseDraft: true
+          releaseName: 'Auri v__VERSION__'
           prerelease: false
           generateReleaseNotes: true
           args: ${{ matrix.args }}
