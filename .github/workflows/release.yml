@@ -19,20 +19,42 @@ jobs:
       fail-fast: false
       matrix:
         include:
+          # macOS
           - platform: 'macos-latest'
-            args: '--target aarch64-apple-darwin'
-            rust_targets: 'aarch64-apple-darwin,x86_64-apple-darwin'
+            args: '--target aarch64-apple-darwin --bundles dmg'
+            rust_target: 'aarch64-apple-darwin'
+            name: 'macOS ARM64'
           - platform: 'macos-latest'
-            args: '--target x86_64-apple-darwin'
-            rust_targets: 'aarch64-apple-darwin,x86_64-apple-darwin'
+            args: '--target x86_64-apple-darwin --bundles dmg'
+            rust_target: 'x86_64-apple-darwin'
+            name: 'macOS x64'
+
+          # Linux (AppImage only) - native ARM64 runner
           - platform: 'ubuntu-22.04'
-            args: ''
-            rust_targets: ''
+            args: '--bundles appimage'
+            rust_target: ''
+            name: 'Linux x64'
+          - platform: 'ubuntu-22.04-arm'
+            args: '--bundles appimage'
+            rust_target: ''
+            name: 'Linux ARM64'
+
+          # Windows (NSIS only - no admin required) - native ARM64 runner
           - platform: 'windows-latest'
-            args: ''
-            rust_targets: ''
+            args: '--bundles nsis'
+            rust_target: ''
+            name: 'Windows x64'
+          - platform: 'windows-11-arm'
+            args: '--bundles nsis'
+            rust_target: ''
+            name: 'Windows ARM64'
+          - platform: 'windows-latest'
+            args: '--target i686-pc-windows-msvc --bundles nsis'
+            rust_target: 'i686-pc-windows-msvc'
+            name: 'Windows x86'
 
     runs-on: ${{ matrix.platform }}
+    name: Build (${{ matrix.name }})
     steps:
       - uses: actions/checkout@v4
 
@@ -49,15 +71,16 @@ jobs:
       - name: Install Rust stable
         uses: dtolnay/rust-toolchain@stable
         with:
-          targets: ${{ matrix.rust_targets }}
+          targets: ${{ matrix.rust_target }}
 
       - name: Rust cache
         uses: swatinem/rust-cache@v2
         with:
           workspaces: './src-tauri -> target'
 
-      - name: Install dependencies (Ubuntu only)
-        if: matrix.platform == 'ubuntu-22.04'
+      # Linux dependencies (both x64 and ARM64 native runners)
+      - name: Install dependencies (Linux)
+        if: contains(matrix.platform, 'ubuntu')
         run: |
           sudo apt-get update
           sudo apt-get install -y libwebkit2gtk-4.1-dev libappindicator3-dev librsvg2-dev patchelf
@@ -81,10 +104,18 @@ jobs:
 
             ### Installation
 
-            - **macOS (Apple Silicon)**: Download the `.dmg` file for `aarch64`
-            - **macOS (Intel)**: Download the `.dmg` file for `x64`
-            - **Windows**: Download the `.msi` or `.exe` installer
-            - **Linux**: Download the `.AppImage` or `.deb` package
+            **macOS**
+            - Apple Silicon (M1/M2): Download `aarch64.dmg`
+            - Intel: Download `x64.dmg`
+
+            **Windows** (no admin required)
+            - 64-bit: Download `x64-setup.exe`
+            - ARM64: Download `arm64-setup.exe`
+            - 32-bit: Download `x86-setup.exe`
+
+            **Linux**
+            - x64: Download `x86_64.AppImage`
+            - ARM64: Download `aarch64.AppImage`
           releaseDraft: true
           prerelease: false
           args: ${{ matrix.args }}
