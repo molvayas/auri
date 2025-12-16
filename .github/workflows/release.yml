@@ -22,11 +22,11 @@ jobs:
         include:
           # macOS (dmg for distribution, app for updater)
           - platform: 'macos-latest'
-            args: '--target aarch64-apple-darwin --bundles app,dmg'
+            args: '--target aarch64-apple-darwin'
             rust_target: 'aarch64-apple-darwin'
             name: 'macOS ARM64'
           - platform: 'macos-latest'
-            args: '--target x86_64-apple-darwin --bundles app,dmg'
+            args: '--target x86_64-apple-darwin'
             rust_target: 'x86_64-apple-darwin'
             name: 'macOS x64'
 
