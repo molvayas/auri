@@ -20,13 +20,13 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          # macOS
+          # macOS (dmg for distribution, app for updater)
           - platform: 'macos-latest'
-            args: '--target aarch64-apple-darwin --bundles dmg'
+            args: '--target aarch64-apple-darwin --bundles app,dmg'
             rust_target: 'aarch64-apple-darwin'
             name: 'macOS ARM64'
           - platform: 'macos-latest'
-            args: '--target x86_64-apple-darwin --bundles dmg'
+            args: '--target x86_64-apple-darwin --bundles app,dmg'
             rust_target: 'x86_64-apple-darwin'
             name: 'macOS x64'
 
