@@ -98,28 +98,9 @@ jobs:
           TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
           TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY_PASSWORD }}
         with:
-          tagName: v__VERSION__
-          releaseName: 'Auri v__VERSION__'
-          releaseBody: |
-            ## What's Changed
-
-            See the assets below to download and install Auri for your platform.
-
-            ### Installation
-
-            **macOS**
-            - Apple Silicon (M1/M2): Download `aarch64.dmg`
-            - Intel: Download `x64.dmg`
-
-            **Windows** (no admin required)
-            - 64-bit: Download `x64-setup.exe`
-            - ARM64: Download `arm64-setup.exe`
-            - 32-bit: Download `x86-setup.exe`
-
-            **Linux**
-            - x64: Download `x86_64.AppImage`
-            - ARM64: Download `aarch64.AppImage`
+          tagName: app-v__VERSION__ # the action automatically replaces \_\_VERSION\_\_ with the app version.
+          releaseName: 'App v__VERSION__'
+          releaseBody: 'See the assets to download this version and install.'
           releaseDraft: true
           prerelease: false
           args: ${{ matrix.args }}
-          updaterJsonPreferNsis: true
