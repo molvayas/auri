@@ -22,15 +22,11 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          # macOS (dmg for distribution, app for updater)
+          # macOS (universal binary for both ARM64 and x64)
           - platform: 'macos-latest'
-            args: '--target aarch64-apple-darwin'
-            rust_target: 'aarch64-apple-darwin'
-            name: 'macOS ARM64'
-          - platform: 'macos-latest'
-            args: '--target x86_64-apple-darwin'
-            rust_target: 'x86_64-apple-darwin'
-            name: 'macOS x64'
+            args: '--target universal-apple-darwin'
+            rust_target: 'aarch64-apple-darwin,x86_64-apple-darwin'
+            name: 'macOS Universal'
 
           # Linux (AppImage only) - native ARM64 runner
           - platform: 'ubuntu-22.04'
