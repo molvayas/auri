@@ -1,7 +1,7 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
   "productName": "auri",
-  "version": "3.4.0",
+  "version": "3.5.0",
   "identifier": "com.auri.app",
   "build": {
     "beforeDevCommand": "pnpm dev",
@@ -44,7 +44,10 @@
       "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDhCRDgwOThFQ0RGQjQzNTMKUldSVFEvdk5qZ25ZaS9xNGRyeWk0My9FVGNONERlTVJtQUNDTHpDdDloOWlWc0VwUXpNY0FDUnYK",
       "endpoints": [
         "https://github.com/molvayas/auri/releases/latest/download/latest.json"
-      ]
+      ],
+      "windows": {
+        "installMode": "basicUi"
+      }
     }
   }
 }
