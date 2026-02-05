@@ -128,11 +128,10 @@ jobs:
           echo "Found draft release: $RELEASE_NAME (ID: $RELEASE_ID)"
           
           # List and delete all .sig assets
-          gh api repos/${{ github.repository }}/releases/$RELEASE_ID/assets --jq '.[] | select(.name | endswith(".sig")) | "\(.id) \(.name)"' | while read -r ASSET_ID ASSET_NAME; do
+          for ASSET_ID in $(gh api repos/${{ github.repository }}/releases/$RELEASE_ID/assets --jq '.[] | select(.name | endswith(".sig")) | .id'); do
+            ASSET_NAME=$(gh api repos/${{ github.repository }}/releases/assets/$ASSET_ID --jq '.name')
             echo "Deleting: $ASSET_NAME"
             gh api -X DELETE repos/${{ github.repository }}/releases/assets/$ASSET_ID
           done
           
-          echo ""
           echo "✅ CI-generated dummy signatures removed from release."
-          echo "
