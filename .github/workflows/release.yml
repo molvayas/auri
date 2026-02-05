@@ -8,8 +8,6 @@ on:
       - 'v*.*.*'
   workflow_dispatch:
 
-# This workflow will build the Tauri app for all platforms, create a GitHub release,
-# and upload the artifacts including the updater JSON for auto-updates.
 
 permissions:
   contents: write
@@ -91,14 +89,13 @@ jobs:
         uses: tauri-apps/tauri-action@v0.6.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
-          TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY_PASSWORD }}
         with:
           tagName: v__VERSION__
           releaseDraft: true
           releaseName: 'Auri v__VERSION__'
           prerelease: false
           generateReleaseNotes: true
+          includeUpdaterJson: false
           args: ${{ matrix.args }}
           assetNamePattern: '[name]_[version]_[platform]_[arch][setup][ext]'
 

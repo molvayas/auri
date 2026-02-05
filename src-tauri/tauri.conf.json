@@ -41,7 +41,7 @@
   },
   "plugins": {
     "updater": {
-      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDhCRDgwOThFQ0RGQjQzNTMKUldSVFEvdk5qZ25ZaS9xNGRyeWk0My9FVGNONERlTVJtQUNDTHpDdDloOWlWc0VwUXpNY0FDUnYK",
+      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IEZST1NUIHRocmVzaG9sZCBwdWJsaWMga2V5ClJXVGVobzJmdnRTSG9ONkdqWisrMUllZzdNc09SRVVFVFZWQisvR3ZoR0RjOTJmMGZIRXJqRkFMCg==",
       "endpoints": [
         "https://github.com/molvayas/auri/releases/latest/download/latest.json"
       ],
